@@ -1,0 +1,7 @@
+Batch Number,Expiry Date,Material Type,Tensile Strength,Elasticity,Absorbency,Non-Toxicity,Biocompatibility,Resistance to Degradation,Packaging Integrity,Label Accuracy,Sterilization Validated,Regulatory Compliant
+C001,2025-12-31,Plastic,150.0,45.0,20.0,95.0,92.0,80.0,Good,Clear,true,true
+C002,2023-10-15,Metal,160.0,50.0,30.0,98.0,88.0,75.0,Good,Clear,true,true
+C003,2026-06-18,Plastic,90.0,35.0,8.0,85.0,85.0,65.0,Good,Clear,false,true
+C004,2024-11-25,Glass,155.0,47.0,25.0,98.0,94.0,90.0,,Clear,true,true
+C005,2025-07-10,Polymer,140.0,46.0,19.0,97.0,93.0,88.0,Good,,true,true
+C006,2027-01-01,Rubber,120.0,41.0,15.0,92.0,90.0,72.0,Good,Clear,true,false

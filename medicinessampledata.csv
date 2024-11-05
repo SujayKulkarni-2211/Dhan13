@@ -1,0 +1,14 @@
+Batch ID,Expiry Date,Supplier Name,Potency (%),Purity (%),Dissolution Rate,Disintegration Time (minutes),pH Level,Storage Condition,Microbial Contamination,Packaging Integrity,Regulatory Compliance,Label Accuracy
+BATCH001,2025-12-31,Supplier A,99.5,99.0,85.0,15,6.5,Cool and Dry,False,True,True,True
+BATCH002,2024-05-15,Supplier B,101.0,100.5,78.0,35,7.0,Room Temperature,True,False,True,False
+BATCH003,2023-11-10,Supplier C,98.0,97.5,82.0,25,5.5,Refrigerated,False,True,False,True
+BATCH004,2026-01-01,Supplier D,95.5,98.5,90.0,20,6.8,Cool and Dark,False,True,True,True
+BATCH005,2024-08-20,Supplier E,104.0,99.9,75.0,40,4.5,Warm,True,False,True,True
+BATCH006,2025-11-15,Supplier F,96.0,99.0,84.0,29,6.6,Cool and Dry,False,True,True,True
+BATCH007,2025-09-30,Supplier G,92.0,99.5,82.0,29,6.5,Cool and Dark,False,True,True,False
+BATCH008,2025-12-31,Supplier A,99.5,99.0,85.0,15,6.5,Cool and Dry,False,True,True,True
+BATCH009,2026-01-01,Supplier D,95.5,98.5,90.0,20,6.8,Cool and Dark,False,True,True,True
+BATCH010,2025-10-10,Supplier J,99.0,100.5,81.0,24,6.5,Cool and Dry,False,True,True,True
+BATCH011,2025-12-31,Supplier M,100.0,98.5,84.0,20,6.0,Cool and Dry,False,True,True,False   # Orange (Needs Attention)
+BATCH012,2025-12-31,Supplier M,100.0,97.5,85.0,20,6.0,Cool and Dry,False,True,True,False
+BATCH012,2025-12-31,Supplier M,100.0,98.0,82.0,20,6.0,Cool and Dry,False,True,True,False
