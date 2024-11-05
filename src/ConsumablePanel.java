@@ -24,7 +24,7 @@ public class ConsumablePanel extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel taglineLabel = new JLabel("Ensuring Quality in Healthcare");
+        JLabel taglineLabel = new JLabel("Health is Wealth! No Compromise on Health!");
         taglineLabel.setFont(new Font("Arial", Font.ITALIC, 20));
         taglineLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -230,7 +230,7 @@ public class ConsumablePanel extends JPanel {
         if (!expiryValid || !sterilizationPass || !regulatoryPass || !tensileStrengthPass || !elasticityPass ||
             !absorbencyPass || !nonToxicityPass || !biocompatibilityPass || !degradationResistancePass) {
             // Critical failure in one or more fields
-            status = "Red (Failed)";
+            status = "Red (Reject it! Disapproved!)";
             color = Color.RED;
         } else if (!packagingPass || !labelAccuracyPass) {
             // Non-critical issues in packaging or labeling

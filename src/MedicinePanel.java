@@ -22,7 +22,7 @@ public class MedicinePanel extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel taglineLabel = new JLabel("Health is Wealth");
+        JLabel taglineLabel = new JLabel("Health is Wealth! No Compromise on Health!");
         taglineLabel.setFont(new Font("Arial", Font.ITALIC, 20));
         taglineLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -221,7 +221,7 @@ public class MedicinePanel extends JPanel {
         // Check for "Red" status first
         if (!potencyPass || !purityPass || !dissolutionRatePass || !disintegrationTimePass ||
             !pHPass || !microbialPass || !packagingPass || !regulatoryPass) {
-            status = "Red (Failed)";
+            status = "Red (Reject it! Disapproved!)";
             color = Color.RED;
         } 
         // Check for "Orange" status for partial failures in less critical tests
