@@ -2,17 +2,17 @@
 public class Medicine extends SupplyItem {
     private double potency;
     private double purity;
-    private boolean microbialContamination;
     private double dissolutionRate;
     private double disintegrationTime;
     private double pHLevel;
+    private String storageCondition; // e.g., "Room Temperature"
+    private boolean microbialContamination;
     private boolean packagingIntegrity;
     private boolean labelAccuracy;
     private boolean regulatoryCompliance;
-    private double storageTemperature;
     private boolean activeIngredientQuality;
-    private String manufacturerCertification;
-    private boolean sterility;
+    private boolean chemicalStability; // New parameter
+    private String batchNumber; // New parameter
 
     public Medicine(String batchID, String expiryDate, String supplierName) {
         super(batchID, expiryDate, supplierName);
@@ -21,117 +21,136 @@ public class Medicine extends SupplyItem {
     // Setter methods for each attribute
     public void setPotency(double potency) { this.potency = potency; }
     public void setPurity(double purity) { this.purity = purity; }
-    public void setMicrobialContamination(boolean microbialContamination) { this.microbialContamination = microbialContamination; }
     public void setDissolutionRate(double dissolutionRate) { this.dissolutionRate = dissolutionRate; }
     public void setDisintegrationTime(double disintegrationTime) { this.disintegrationTime = disintegrationTime; }
     public void setPHLevel(double pHLevel) { this.pHLevel = pHLevel; }
+    public void setStorageCondition(String storageCondition) { this.storageCondition = storageCondition; }
+    public void setMicrobialContamination(boolean microbialContamination) { this.microbialContamination = microbialContamination; }
     public void setPackagingIntegrity(boolean packagingIntegrity) { this.packagingIntegrity = packagingIntegrity; }
     public void setLabelAccuracy(boolean labelAccuracy) { this.labelAccuracy = labelAccuracy; }
     public void setRegulatoryCompliance(boolean regulatoryCompliance) { this.regulatoryCompliance = regulatoryCompliance; }
-    public void setStorageTemperature(double storageTemperature) { this.storageTemperature = storageTemperature; }
     public void setActiveIngredientQuality(boolean activeIngredientQuality) { this.activeIngredientQuality = activeIngredientQuality; }
-    public void setManufacturerCertification(String manufacturerCertification) { this.manufacturerCertification = manufacturerCertification; }
-    public void setSterility(boolean sterility) { this.sterility = sterility; }
+    public void setChemicalStability(boolean chemicalStability) { this.chemicalStability = chemicalStability; }
+    public void setBatchNumber(String batchNumber) { this.batchNumber = batchNumber; }
+
+    // Getter methods for each attribute (needed for UI class to access attributes)
+    public double getPotency() { return potency; }
+    public double getPurity() { return purity; }
+    public double getDissolutionRate() { return dissolutionRate; }
+    public double getDisintegrationTime() { return disintegrationTime; }
+    public double getPHLevel() { return pHLevel; }
+    public String getStorageCondition() { return storageCondition; }
+    public boolean isMicrobialContamination() { return microbialContamination; }
+    public boolean isPackagingIntegrity() { return packagingIntegrity; }
+    public boolean isLabelAccuracy() { return labelAccuracy; }
+    public boolean isRegulatoryCompliance() { return regulatoryCompliance; }
+    public boolean isActiveIngredientQuality() { return activeIngredientQuality; }
+    public boolean isChemicalStability() { return chemicalStability; }
+    public String getBatchNumber() { return batchNumber; }
 
     @Override
-    public void performQualityCheck() {
+    public boolean performQualityCheck() {
         System.out.println("Performing quality check for Medicine...");
 
-        // Sample checks for each factor
-        if (potency >= 90.0 && potency <= 110.0) {
-            System.out.println("Potency: Pass");
-        } else {
+        boolean isValid = true; // Assume valid unless checks fail
+
+        // Check each parameter and print results
+        if (potency < 90.0 || potency > 110.0) {
             System.out.println("Potency: Fail");
+            isValid = false;
+        } else {
+            System.out.println("Potency: Pass");
         }
 
-        if (purity >= 99.0) {
-            System.out.println("Purity: Pass");
-        } else {
+        if (purity < 99.0) {
             System.out.println("Purity: Fail");
+            isValid = false;
+        } else {
+            System.out.println("Purity: Pass");
         }
 
-        if (!microbialContamination) {
-            System.out.println("Microbial Contamination: Pass");
-        } else {
-            System.out.println("Microbial Contamination: Fail");
-        }
-
-        if (dissolutionRate >= 70.0) {
-            System.out.println("Dissolution Rate: Pass");
-        } else {
+        if (dissolutionRate < 70.0) {
             System.out.println("Dissolution Rate: Fail");
+            isValid = false;
+        } else {
+            System.out.println("Dissolution Rate: Pass");
         }
 
-        if (disintegrationTime <= 30.0) {
-            System.out.println("Disintegration Time: Pass");
-        } else {
+        if (disintegrationTime > 30.0) {
             System.out.println("Disintegration Time: Fail");
+            isValid = false;
+        } else {
+            System.out.println("Disintegration Time: Pass");
         }
 
-        if (pHLevel >= 5.5 && pHLevel <= 8.0) {
-            System.out.println("pH Level: Pass");
-        } else {
+        if (pHLevel < 5.5 || pHLevel > 8.0) {
             System.out.println("pH Level: Fail");
+            isValid = false;
+        } else {
+            System.out.println("pH Level: Pass");
         }
 
         if (packagingIntegrity) {
             System.out.println("Packaging Integrity: Pass");
         } else {
             System.out.println("Packaging Integrity: Fail");
+            isValid = false;
         }
 
         if (labelAccuracy) {
             System.out.println("Label Accuracy: Pass");
         } else {
             System.out.println("Label Accuracy: Fail");
+            isValid = false;
         }
 
         if (regulatoryCompliance) {
             System.out.println("Regulatory Compliance: Pass");
         } else {
             System.out.println("Regulatory Compliance: Fail");
+            isValid = false;
         }
 
-        if (storageTemperature >= 15.0 && storageTemperature <= 25.0) {
-            System.out.println("Storage Temperature: Pass");
+        if (storageCondition.equalsIgnoreCase("Room Temperature")) {
+            System.out.println("Storage Condition: Pass");
         } else {
-            System.out.println("Storage Temperature: Fail");
+            System.out.println("Storage Condition: Fail");
+            isValid = false;
+        }
+
+        // New parameter checks
+        if (chemicalStability) {
+            System.out.println("Chemical Stability: Pass");
+        } else {
+            System.out.println("Chemical Stability: Fail");
+            isValid = false;
         }
 
         if (activeIngredientQuality) {
             System.out.println("Active Ingredient Quality: Pass");
         } else {
             System.out.println("Active Ingredient Quality: Fail");
+            isValid = false;
         }
 
-        if (manufacturerCertification.equals("Certified")) {
-            System.out.println("Manufacturer Certification: Pass");
-        } else {
-            System.out.println("Manufacturer Certification: Fail");
-        }
-
-        if (sterility) {
-            System.out.println("Sterility: Pass");
-        } else {
-            System.out.println("Sterility: Fail");
-        }
+        return isValid; // Return whether the medicine passes all checks
     }
 
     @Override
     public void displayInfo() {
         super.displayInfo();
+        System.out.println("Batch Number: " + batchNumber); // Display the new batch number
         System.out.println("Potency: " + potency);
         System.out.println("Purity: " + purity);
-        System.out.println("Microbial Contamination: " + (microbialContamination ? "Yes" : "No"));
         System.out.println("Dissolution Rate: " + dissolutionRate);
         System.out.println("Disintegration Time: " + disintegrationTime);
         System.out.println("pH Level: " + pHLevel);
+        System.out.println("Storage Condition: " + storageCondition);
+        System.out.println("Microbial Contamination: " + (microbialContamination ? "Yes" : "No"));
         System.out.println("Packaging Integrity: " + (packagingIntegrity ? "Intact" : "Damaged"));
         System.out.println("Label Accuracy: " + (labelAccuracy ? "Accurate" : "Inaccurate"));
         System.out.println("Regulatory Compliance: " + (regulatoryCompliance ? "Compliant" : "Non-Compliant"));
-        System.out.println("Storage Temperature: " + storageTemperature + "°C");
         System.out.println("Active Ingredient Quality: " + (activeIngredientQuality ? "High" : "Low"));
-        System.out.println("Manufacturer Certification: " + manufacturerCertification);
-        System.out.println("Sterility: " + (sterility ? "Sterile" : "Non-Sterile"));
+        System.out.println("Chemical Stability: " + (chemicalStability ? "Stable" : "Unstable"));
     }
 }

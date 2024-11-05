@@ -1,0 +1,6 @@
+Batch ID,Expiry Date,Supplier Name,Potency (%),Purity (%),Dissolution Rate,Disintegration Time (minutes),pH Level,Storage Condition,Microbial Contamination,Packaging Integrity,Regulatory Compliance,Label Accuracy
+BATCH001,2025-12-31,Supplier A,99.5,99.0,85.0,15,6.5,Cool and Dry,False,True,True,True
+BATCH002,2024-05-15,Supplier B,101.0,100.5,78.0,35,7.0,Room Temperature,True,False,True,False
+BATCH003,2023-11-10,Supplier C,98.0,97.5,82.0,25,5.5,Refrigerated,False,True,False,True
+BATCH004,2026-01-01,Supplier D,95.5,98.5,90.0,20,6.8,Cool and Dark,False,True,True,True
+BATCH005,2024-08-20,Supplier E,104.0,99.9,75.0,40,4.5,Warm,True,False,True,True

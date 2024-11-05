@@ -1,4 +1,4 @@
-// backend/DataProcessor.java
+// src/DataProcessor.java
 public class DataProcessor {
     private String batchID;
     private String expiryDate;
@@ -17,12 +17,5 @@ public class DataProcessor {
         System.out.println("Batch ID: " + batchID);
         System.out.println("Expiry Date: " + expiryDate);
         System.out.println("Supplier Name: " + supplierName);
-    }
-
-    // Main method for testing
-    public static void main(String[] args) {
-        // Sample data for testing
-        DataProcessor processor = new DataProcessor("B001", "2025-12-31", "ABC Pharmaceuticals");
-        processor.process();
     }
 }

@@ -8,13 +8,9 @@ public class Consumable extends SupplyItem {
     }
 
     @Override
-    public void performQualityCheck() {
+    public boolean performQualityCheck() {
         System.out.println("Performing quality check for Consumable...");
-        if (isSterile) {
-            System.out.println("Item is sterile.");
-        } else {
-            System.out.println("Item is not sterile!");
-        }
+        return isSterile; // Return true if sterile
     }
 
     @Override
