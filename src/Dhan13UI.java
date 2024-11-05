@@ -11,9 +11,31 @@ public class Dhan13UI extends JFrame {
 
     public Dhan13UI() {
         setTitle("Dhan13 Health Evaluation");
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(20, 20));
 
-        JPanel inputPanel = new JPanel(new GridLayout(0, 2, 10, 10)); // Panel for input fields
+        // Create a title panel for the title and tagline
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+
+        JLabel titleLabel = new JLabel("Dhan13");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 32)); // Title font
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel taglineLabel = new JLabel("Health is Wealth");
+        taglineLabel.setFont(new Font("Arial", Font.ITALIC, 20)); // Tagline font
+        taglineLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        titlePanel.add(titleLabel);
+        titlePanel.add(taglineLabel);
+
+        // Add title panel to the top of the frame
+        add(titlePanel, BorderLayout.NORTH);
+
+        // Main panel for input fields and buttons
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+
+        JPanel inputPanel = new JPanel(new GridLayout(0, 2, 5, 5)); // Panel for input fields
 
         // Initialize fields for parameters
         batchIDField = new JTextField();
@@ -25,7 +47,7 @@ public class Dhan13UI extends JFrame {
         disintegrationTimeField = new JTextField();
         pHField = new JTextField();
         storageConditionField = new JTextField();
-        
+
         microbialCheck = new JCheckBox("Microbial Contamination");
         packagingCheck = new JCheckBox("Packaging Integrity");
         regulatoryCheck = new JCheckBox("Regulatory Compliance");
@@ -55,7 +77,7 @@ public class Dhan13UI extends JFrame {
         inputPanel.add(regulatoryCheck);
         inputPanel.add(labelAccuracyCheck);
 
-        add(inputPanel, BorderLayout.NORTH);
+        mainPanel.add(inputPanel, BorderLayout.CENTER); // Add input panel to main panel
 
         // Add buttons for submit and CSV upload
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -67,15 +89,17 @@ public class Dhan13UI extends JFrame {
         uploadButton.addActionListener(e -> handleCSVUpload());
         buttonPanel.add(uploadButton);
 
-        // Move button panel to SOUTH to avoid layout issues
-        add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH); // Add button panel to main panel
+
+        // Add main panel to the center of the frame
+        add(mainPanel, BorderLayout.CENTER);
 
         // Set up the result area with JTextPane
         resultArea = new JTextPane(); // Changed to JTextPane
         resultArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultArea);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Batch Status Summary"));
-        add(scrollPane, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.SOUTH); // Move the result area to the bottom
 
         setSize(600, 600); // Adjusted size
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -184,35 +208,33 @@ public class Dhan13UI extends JFrame {
         boolean regulatoryPass = medicine.isRegulatoryCompliance();
         boolean labelAccuracyPass = medicine.isLabelAccuracy();
 
-        // Determine the overall status based on rules
+        // Determine the status and color
         String status;
         Color color;
-        if (!potencyPass || !purityPass || !regulatoryPass || !packagingPass) {
-            status = "Red (Straightaway Rejected)";
+
+        if (!potencyPass || !purityPass || !dissolutionRatePass || !disintegrationTimePass ||
+            !pHPass || !microbialPass || !packagingPass || !regulatoryPass || !labelAccuracyPass) {
+            status = "Red (Failed)";
             color = Color.RED;
-        } else if (!dissolutionRatePass || !disintegrationTimePass || !pHPass || !microbialPass) {
-            status = "Orange (Needs Review)";
+        } else if (!packagingPass || !labelAccuracyPass) {
+            status = "Orange (Needs Attention)";
             color = Color.ORANGE;
         } else {
-            status = "Green (Immediate Acceptance)";
+            status = "Green (Approved)";
             color = Color.GREEN;
         }
 
-        // Display Batch ID and Status in result area
-        appendToResultArea("Batch ID: " + medicine.getBatchID() + " - Status: " + status, color);
+        // Display the evaluation results
+        appendToResultArea("Batch ID: " + medicine.getBatchID() + ", Status: " + status, color);
     }
 
-    private void appendToResultArea(String message, Color color) {
-        // Create a new StyledDocument
-        StyledDocument doc = resultArea.getStyledDocument();
-        SimpleAttributeSet attrs = new SimpleAttributeSet();
-
-        // Set the color based on the status
-        StyleConstants.setForeground(attrs, color);
-        
-        // Append the message
+    private void appendToResultArea(String text, Color color) {
         try {
-            doc.insertString(doc.getLength(), message + "\n", attrs);
+            StyledDocument doc = resultArea.getStyledDocument();
+            Style style = resultArea.addStyle("Style", null);
+            StyleConstants.setForeground(style, color);
+            doc.insertString(doc.getLength(), text + "\n", style);
+            resultArea.setCaretPosition(doc.getLength()); // Auto-scroll to the end
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
@@ -222,3 +244,4 @@ public class Dhan13UI extends JFrame {
         SwingUtilities.invokeLater(Dhan13UI::new);
     }
 }
+
