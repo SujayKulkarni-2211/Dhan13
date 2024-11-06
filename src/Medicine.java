@@ -12,7 +12,7 @@ public class Medicine extends SupplyItem {
     private boolean regulatoryCompliance;
     private boolean activeIngredientQuality;
     private boolean chemicalStability; // New parameter
-    private String batchNumber; // New parameter
+    private String batchID; // New parameter
 
     public Medicine(String batchID, String expiryDate, String supplierName) {
         super(batchID, expiryDate, supplierName);
@@ -31,7 +31,7 @@ public class Medicine extends SupplyItem {
     public void setRegulatoryCompliance(boolean regulatoryCompliance) { this.regulatoryCompliance = regulatoryCompliance; }
     public void setActiveIngredientQuality(boolean activeIngredientQuality) { this.activeIngredientQuality = activeIngredientQuality; }
     public void setChemicalStability(boolean chemicalStability) { this.chemicalStability = chemicalStability; }
-    public void setBatchNumber(String batchNumber) { this.batchNumber = batchNumber; }
+    public void setbatchID(String batchID) { this.batchID = batchID; }
 
     // Getter methods for each attribute (needed for UI class to access attributes)
     public double getPotency() { return potency; }
@@ -46,7 +46,7 @@ public class Medicine extends SupplyItem {
     public boolean isRegulatoryCompliance() { return regulatoryCompliance; }
     public boolean isActiveIngredientQuality() { return activeIngredientQuality; }
     public boolean isChemicalStability() { return chemicalStability; }
-    public String getBatchNumber() { return batchNumber; }
+    public String getbatchID() { return batchID; }
 
     @Override
     public boolean performQualityCheck() {
@@ -133,13 +133,13 @@ public class Medicine extends SupplyItem {
             isValid = false;
         }
 
-        return isValid; // Return whether the medicine passes all checks
+        return isValid; 
     }
 
     @Override
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("Batch Number: " + batchNumber); // Display the new batch number
+        System.out.println("Batch Number: " + batchID); 
         System.out.println("Potency: " + potency);
         System.out.println("Purity: " + purity);
         System.out.println("Dissolution Rate: " + dissolutionRate);

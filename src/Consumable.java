@@ -1,6 +1,6 @@
-public class Consumable {
-    private String batchNumber;
-    private String expiryDate;
+// src/Consumable.java
+
+public class Consumable extends SupplyItem {
     private String materialType;
     private double tensileStrength;
     private double elasticity;
@@ -13,29 +13,13 @@ public class Consumable {
     private boolean sterilizationValidated;
     private boolean regulatoryCompliant;
 
-    public Consumable(String batchNumber, String expiryDate, String materialType) {
-        this.batchNumber = batchNumber;
-        this.expiryDate = expiryDate;
+    // Constructor for Consumable which now includes supplierName for the SupplyItem fields
+    public Consumable(String batchID, String expiryDate, String supplierName, String materialType) {
+        super(batchID, expiryDate, supplierName);
         this.materialType = materialType;
     }
 
-    // Getters and Setters
-    public String getBatchNumber() {
-        return batchNumber;
-    }
-
-    public void setBatchNumber(String batchNumber) {
-        this.batchNumber = batchNumber;
-    }
-
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
+    // Getters and Setters for Consumable specific fields
     public String getMaterialType() {
         return materialType;
     }
@@ -124,5 +108,18 @@ public class Consumable {
         this.regulatoryCompliant = regulatoryCompliant;
     }
 
-    // Additional validation methods can be added here if needed
+    // Implement the abstract performQualityCheck method from SupplyItem
+    @Override
+    public boolean performQualityCheck() {
+        // Placeholder logic for quality check, which could be customized as needed
+        return isSterilizationValidated() && isRegulatoryCompliant();
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Material Type: " + materialType);
+        System.out.println("Sterilization Validated: " + sterilizationValidated);
+        System.out.println("Regulatory Compliant: " + regulatoryCompliant);
+    }
 }
