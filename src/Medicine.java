@@ -5,20 +5,20 @@ public class Medicine extends SupplyItem {
     private double dissolutionRate;
     private double disintegrationTime;
     private double pHLevel;
-    private String storageCondition; // e.g., "Room Temperature"
+    private String storageCondition;
     private boolean microbialContamination;
     private boolean packagingIntegrity;
     private boolean labelAccuracy;
     private boolean regulatoryCompliance;
     private boolean activeIngredientQuality;
-    private boolean chemicalStability; // New parameter
-    private String batchID; // New parameter
+    private boolean chemicalStability;
+    private String batchID; 
 
     public Medicine(String batchID, String expiryDate, String supplierName) {
         super(batchID, expiryDate, supplierName);
     }
 
-    // Setter methods for each attribute
+   
     public void setPotency(double potency) { this.potency = potency; }
     public void setPurity(double purity) { this.purity = purity; }
     public void setDissolutionRate(double dissolutionRate) { this.dissolutionRate = dissolutionRate; }
@@ -33,7 +33,7 @@ public class Medicine extends SupplyItem {
     public void setChemicalStability(boolean chemicalStability) { this.chemicalStability = chemicalStability; }
     public void setbatchID(String batchID) { this.batchID = batchID; }
 
-    // Getter methods for each attribute (needed for UI class to access attributes)
+   
     public double getPotency() { return potency; }
     public double getPurity() { return purity; }
     public double getDissolutionRate() { return dissolutionRate; }
@@ -52,9 +52,9 @@ public class Medicine extends SupplyItem {
     public boolean performQualityCheck() {
         System.out.println("Performing quality check for Medicine...");
 
-        boolean isValid = true; // Assume valid unless checks fail
+        boolean isValid = true;
 
-        // Check each parameter and print results
+       
         if (potency < 90.0 || potency > 110.0) {
             System.out.println("Potency: Fail");
             isValid = false;
@@ -118,7 +118,7 @@ public class Medicine extends SupplyItem {
             isValid = false;
         }
 
-        // New parameter checks
+       
         if (chemicalStability) {
             System.out.println("Chemical Stability: Pass");
         } else {

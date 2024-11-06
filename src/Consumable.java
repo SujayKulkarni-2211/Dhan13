@@ -108,18 +108,27 @@ public class Consumable extends SupplyItem {
         this.regulatoryCompliant = regulatoryCompliant;
     }
 
-    // Implement the abstract performQualityCheck method from SupplyItem
+    
     @Override
     public boolean performQualityCheck() {
-        // Placeholder logic for quality check, which could be customized as needed
+        
         return isSterilizationValidated() && isRegulatoryCompliant();
     }
 
     @Override
-    public void displayInfo() {
-        super.displayInfo();
-        System.out.println("Material Type: " + materialType);
-        System.out.println("Sterilization Validated: " + sterilizationValidated);
-        System.out.println("Regulatory Compliant: " + regulatoryCompliant);
-    }
+public void displayInfo() {
+    super.displayInfo();
+    System.out.println("Material Type: " + materialType);
+    System.out.println("Tensile Strength: " + tensileStrength);
+    System.out.println("Elasticity: " + elasticity);
+    System.out.println("Absorbency: " + absorbency);
+    System.out.println("Non-Toxicity: " + nonToxicity);
+    System.out.println("Biocompatibility: " + biocompatibility);
+    System.out.println("Resistance to Degradation: " + resistanceToDegradation);
+    System.out.println("Packaging Integrity: " + packagingIntegrity);
+    System.out.println("Label Accuracy: " + labelAccuracy);
+    System.out.println("Sterilization Validated: " + sterilizationValidated);
+    System.out.println("Regulatory Compliant: " + regulatoryCompliant);
+}
+
 }

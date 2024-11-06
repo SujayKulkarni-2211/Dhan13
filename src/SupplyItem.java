@@ -14,7 +14,7 @@ public abstract class SupplyItem {
     public String getExpiryDate() { return expiryDate; }
     public String getSupplierName() { return supplierName; }
 
-    public abstract boolean performQualityCheck(); // Abstract method for quality check
+    public abstract boolean performQualityCheck(); 
 
     public void displayInfo() {
         System.out.println("Batch ID: " + batchID);

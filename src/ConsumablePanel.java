@@ -1,5 +1,4 @@
 //src/Consumablepanel.java
-// src/ConsumablePanel.java
 
 import java.awt.*;
 import java.io.*;
@@ -19,7 +18,7 @@ public class ConsumablePanel extends JPanel {
     public ConsumablePanel() {
         setLayout(new BorderLayout(20, 20));
 
-        // Create title panel
+
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
 
@@ -35,16 +34,16 @@ public class ConsumablePanel extends JPanel {
         titlePanel.add(taglineLabel);
         add(titlePanel, BorderLayout.NORTH);
 
-        // Main panel for input fields
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
         JPanel inputPanel = new JPanel(new GridLayout(0, 2, 5, 5));
 
-        // Initialize fields
+
         batchIDField = new JTextField();
         expiryDateField = new JTextField();
-        supplierNameField = new JTextField(); // Add supplier name field
+        supplierNameField = new JTextField();
         materialTypeField = new JTextField();
         tensileStrengthField = new JTextField();
         elasticityField = new JTextField();
@@ -58,12 +57,12 @@ public class ConsumablePanel extends JPanel {
         sterilizationCheck = new JCheckBox("Sterilization Validated");
         regulatoryCheck = new JCheckBox("Regulatory Compliant");
 
-        // Add fields to input panel
+
         inputPanel.add(new JLabel("Batch Number:"));
         inputPanel.add(batchIDField);
         inputPanel.add(new JLabel("Expiry Date (YYYY-MM-DD):"));
         inputPanel.add(expiryDateField);
-        inputPanel.add(new JLabel("Supplier Name:")); // Add label for supplier name
+        inputPanel.add(new JLabel("Supplier Name:"));
         inputPanel.add(supplierNameField);
         inputPanel.add(new JLabel("Material Type:"));
         inputPanel.add(materialTypeField);
@@ -88,7 +87,7 @@ public class ConsumablePanel extends JPanel {
 
         mainPanel.add(inputPanel, BorderLayout.CENTER);
 
-        // Button panel
+       
         JPanel buttonPanel = new JPanel(new FlowLayout());
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> handleSubmit());
@@ -101,7 +100,7 @@ public class ConsumablePanel extends JPanel {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         add(mainPanel, BorderLayout.CENTER);
 
-        // Result area
+
         resultArea = new JTextPane();
         resultArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultArea);
@@ -125,7 +124,7 @@ public class ConsumablePanel extends JPanel {
             String supplierName = supplierNameField.getText().trim();
             String materialType = materialTypeField.getText().trim();
             
-            // Check and parse numeric fields safely
+           
             double tensileStrength = parseDoubleSafely(tensileStrengthField.getText().trim());
             double elasticity = parseDoubleSafely(elasticityField.getText().trim());
             double absorbency = parseDoubleSafely(absorbencyField.getText().trim());
@@ -139,7 +138,7 @@ public class ConsumablePanel extends JPanel {
             boolean sterilizationValidated = sterilizationCheck.isSelected();
             boolean regulatoryCompliant = regulatoryCheck.isSelected();
     
-            // Validate expiry date first
+
             if (!isValidExpiryDate(expiryDate)) {
                 appendToResultArea("Invalid expiry date. Please use YYYY-MM-DD format and ensure the date is in the future.", Color.RED);
                 return; 
@@ -156,6 +155,7 @@ public class ConsumablePanel extends JPanel {
             consumable.setLabelAccuracy(labelAccuracy);
             consumable.setSterilizationValidated(sterilizationValidated);
             consumable.setRegulatoryCompliant(regulatoryCompliant);
+            consumable.displayInfo();
     
             evaluateAndDisplay(consumable);
     
@@ -173,19 +173,19 @@ public class ConsumablePanel extends JPanel {
             File file = fileChooser.getSelectedFile();
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line;
-                resultArea.setText(""); // Clear previous results
+                resultArea.setText("");
                 
-                br.readLine();  // Skip header line
+                br.readLine(); 
     
                 while ((line = br.readLine()) != null) {
                     String[] data = line.split(",");
-                    if (data.length >= 14) { // Ensure all required fields are present
+                    if (data.length >= 14) { 
                         String batchID = data[0].trim();
                         String expiryDate = data[1].trim();
                         String materialType = data[2].trim();
                         String supplierName = data[3].trim();
     
-                        // Parse numerical fields safely (using try-catch to handle potential parsing errors)
+
                         double tensileStrength = parseDoubleSafely(data[4].trim());
                         double elasticity = parseDoubleSafely(data[5].trim());
                         double absorbency = parseDoubleSafely(data[6].trim());
@@ -193,15 +193,15 @@ public class ConsumablePanel extends JPanel {
                         double biocompatibility = parseDoubleSafely(data[8].trim());
                         double degradationResistance = parseDoubleSafely(data[9].trim());
     
-                        // Treat Packaging Integrity and Label Accuracy as string values
+                        
                         String packagingIntegrity = data[10].trim();
                         String labelAccuracy = data[11].trim();
                         
-                        // Treat these as boolean values
+
                         boolean sterilization = parseBooleanSafely(data[12].trim());
                         boolean regulatory = parseBooleanSafely(data[13].trim());
     
-                        // Create the consumable object and validate
+
                         Consumable consumable = new Consumable(batchID, expiryDate, supplierName, materialType);
                         consumable.setTensileStrength(tensileStrength);
                         consumable.setElasticity(elasticity);
@@ -213,6 +213,7 @@ public class ConsumablePanel extends JPanel {
                         consumable.setLabelAccuracy(labelAccuracy);
                         consumable.setSterilizationValidated(sterilization);
                         consumable.setRegulatoryCompliant(regulatory);
+                        consumable.displayInfo();
     
                         evaluateAndDisplay(consumable);
                     } else {
@@ -230,7 +231,7 @@ public class ConsumablePanel extends JPanel {
         try {
             return Double.parseDouble(value);
         } catch (NumberFormatException e) {
-            return 0; // Return 0 for invalid values
+            return 0; 
         }
     }
     
@@ -243,7 +244,7 @@ public class ConsumablePanel extends JPanel {
 
 
     private void evaluateAndDisplay(Consumable consumable) {
-        // Evaluate each parameter
+      
         boolean expiryValid = isValidExpiryDate(consumable.getExpiryDate());
         boolean tensileStrengthPass = consumable.getTensileStrength() >= 100; 
         boolean elasticityPass = consumable.getElasticity() >= 40; 
@@ -256,7 +257,7 @@ public class ConsumablePanel extends JPanel {
         boolean sterilizationPass = consumable.isSterilizationValidated();
         boolean regulatoryPass = consumable.isRegulatoryCompliant();
     
-        // Determine status based on conditions
+
         String status;
         Color color;
     

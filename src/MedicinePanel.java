@@ -10,11 +10,11 @@ public class MedicinePanel extends JPanel {
     private JTextField batchIDField, expiryDateField, supplierNameField, potencyField, purityField, dissolutionRateField;
     private JTextField disintegrationTimeField, pHField, storageConditionField;
     private JCheckBox microbialCheck, packagingCheck, regulatoryCheck, labelAccuracyCheck;
-    private JTextPane resultArea; // Changed to JTextPane
+    private JTextPane resultArea;  
     public MedicinePanel() {
         setLayout(new BorderLayout(20, 20));
 
-        // Create title panel
+       
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
 
@@ -30,13 +30,13 @@ public class MedicinePanel extends JPanel {
         titlePanel.add(taglineLabel);
         add(titlePanel, BorderLayout.NORTH);
 
-        // Main panel for input fields
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
         JPanel inputPanel = new JPanel(new GridLayout(0, 2, 5, 5));
 
-        // Initialize fields
+
         batchIDField = new JTextField();
         expiryDateField = new JTextField();
         supplierNameField = new JTextField();
@@ -52,7 +52,7 @@ public class MedicinePanel extends JPanel {
         regulatoryCheck = new JCheckBox("Regulatory Compliance");
         labelAccuracyCheck = new JCheckBox("Label Accuracy");
 
-        // Add fields to input panel
+
         inputPanel.add(new JLabel("Batch ID:"));
         inputPanel.add(batchIDField);
         inputPanel.add(new JLabel("Expiry Date (YYYY-MM-DD):"));
@@ -78,7 +78,7 @@ public class MedicinePanel extends JPanel {
 
         mainPanel.add(inputPanel, BorderLayout.CENTER);
 
-        // Button panel
+
         JPanel buttonPanel = new JPanel(new FlowLayout());
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> handleSubmit());
@@ -91,7 +91,7 @@ public class MedicinePanel extends JPanel {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         add(mainPanel, BorderLayout.CENTER);
 
-        // Result area
+
         resultArea = new JTextPane();
         resultArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultArea);
@@ -102,9 +102,9 @@ public class MedicinePanel extends JPanel {
     try {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(expiryDate, formatter);
-        return date.isAfter(LocalDate.now()); // Check if the date is in the future
+        return date.isAfter(LocalDate.now()); 
     } catch (DateTimeParseException e) {
-        return false; // Return false for invalid format
+        return false; 
     }
 }
 
@@ -114,7 +114,7 @@ public class MedicinePanel extends JPanel {
             String expiryDate = expiryDateField.getText().trim();
             if (!isValidExpiryDate(expiryDate)) {
                 appendToResultArea("Invalid expiry date. Please use YYYY-MM-DD format and ensure the date is in the future.", Color.RED);
-                return; // Stop further processing if the date is invalid
+                return; 
             }
             String supplierName = supplierNameField.getText().trim();
             double potency = Double.parseDouble(potencyField.getText().trim());
@@ -139,7 +139,7 @@ public class MedicinePanel extends JPanel {
             medicine.setPackagingIntegrity(packaging);
             medicine.setRegulatoryCompliance(regulatory);
             medicine.setLabelAccuracy(labelAccuracy);
-
+            medicine.displayInfo();
             evaluateAndDisplay(medicine);
 
         } catch (NumberFormatException ex) {
@@ -155,10 +155,10 @@ public class MedicinePanel extends JPanel {
             File file = fileChooser.getSelectedFile();
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line;
-                resultArea.setText(""); // Clear previous results in result area
+                resultArea.setText("");
                 
-                // Skip the header line
-                br.readLine(); // This line skips the header
+
+                br.readLine();
                 
                 while ((line = br.readLine()) != null) {
                     String[] data = line.split(",");
@@ -188,8 +188,8 @@ public class MedicinePanel extends JPanel {
                         medicine.setPackagingIntegrity(packaging);
                         medicine.setRegulatoryCompliance(regulatory);
                         medicine.setLabelAccuracy(labelAccuracy);
-    
-                        evaluateAndDisplay(medicine); // Evaluate each record
+                        medicine.displayInfo();
+                        evaluateAndDisplay(medicine); 
                     } else {
                         appendToResultArea("Skipping invalid line: " + line, Color.ORANGE);
                     }
@@ -203,39 +203,39 @@ public class MedicinePanel extends JPanel {
     }
     
     private void evaluateAndDisplay(Medicine medicine) {
-        // Evaluate each parameter
+
         boolean potencyPass = medicine.getPotency() >= 95 && medicine.getPotency() <= 105;
         boolean purityPass = medicine.getPurity() >= 98 && medicine.getPurity() <= 102;
         boolean dissolutionRatePass = medicine.getDissolutionRate() >= 80;
         boolean disintegrationTimePass = medicine.getDisintegrationTime() <= 30;
         boolean pHPass = medicine.getPHLevel() >= 5 && medicine.getPHLevel() <= 7;
-        boolean microbialPass = !medicine.isMicrobialContamination(); // Critical test
-        boolean packagingPass = medicine.isPackagingIntegrity(); // Critical test
-        boolean regulatoryPass = medicine.isRegulatoryCompliance(); // Critical test
-        boolean labelAccuracyPass = medicine.isLabelAccuracy(); // Critical test
+        boolean microbialPass = !medicine.isMicrobialContamination(); 
+        boolean packagingPass = medicine.isPackagingIntegrity();
+        boolean regulatoryPass = medicine.isRegulatoryCompliance(); 
+        boolean labelAccuracyPass = medicine.isLabelAccuracy();
     
-        // Determine the status and color
+
         String status;
         Color color;
     
-        // Check for "Red" status first
+
         if (!potencyPass || !purityPass || !dissolutionRatePass || !disintegrationTimePass ||
             !pHPass || !microbialPass || !packagingPass || !regulatoryPass) {
             status = "Red (Reject it! Disapproved!)";
             color = Color.RED;
         } 
-        // Check for "Orange" status for partial failures in less critical tests
+
         else if (!labelAccuracyPass) {
             status = "Orange (Needs Attention)";
             color = Color.ORANGE;
         } 
-        // If everything passes
+
         else {
             status = "Green (Approved)";
             color = Color.GREEN;
         }
     
-        // Display the evaluation results
+
         appendToResultArea("Batch ID: " + medicine.getBatchID() + ", Status: " + status, color);
     }
     
@@ -248,7 +248,7 @@ public class MedicinePanel extends JPanel {
             Style style = resultArea.addStyle("Style", null);
             StyleConstants.setForeground(style, color);
             doc.insertString(doc.getLength(), text + "\n", style);
-            resultArea.setCaretPosition(doc.getLength()); // Auto-scroll to the end
+            resultArea.setCaretPosition(doc.getLength());
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
